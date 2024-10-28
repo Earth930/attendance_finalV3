@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Insert Student</title>
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    body {
+        font-family: Arial, sans-serif;
+    }
+
+    .sidebar {
+        background-color: #343a40;
+        min-height: 100vh;
+        width: 250px;
+    }
+
+    .sidebar a {
+        color: white;
+        padding: 15px;
+        display: block;
+        text-decoration: none;
+    }
+
+    .sidebar a:hover {
+        background-color: #495057;
+    }
+
+    .main-content {
+        margin-left: 250px;
+        padding: 20px;
+    }
+
+    @media (max-width: 768px) {
+        .sidebar {
+            position: fixed;
+            width: 100%;
+            height: auto;
+            z-index: 1;
+            top: 0;
+            left: 0;
+            transform: translateX(-100%);
+        }
+
+        .sidebar.show {
+            transform: translateX(0);
+        }
+
+        .main-content {
+            margin-left: 0;
+            padding: 20px;
+        }
+
+        .navbar-toggler {
+            display: block;
+        }
+    }
+</style>
+</head>
+
+<body>
+  <nav class="navbar navbar-dark bg-dark d-md-none">
+    <button class="navbar-toggler" type="button" onclick="toggleSidebar()">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+</nav>
+
+  <div class="sidebar position-fixed top-0 start-0 p-3">
+    <h4 class="text-white">ยินดีต้อนรับ Admin!</h4>
+    <ul class="nav flex-column">
+      <li class="nav-item">
+        <a href="/insert" class="nav-link">Add student</a>
+      </li>
+      <li class="nav-item">
+        <a href="/showStudent" class="nav-link">Show student</a>
+      </li>
+      <li class="nav-item">
+        <a href="/checkStudent" class="nav-link">Checked</a>
+      </li>
+      <li class="nav-item">
+        <a href="/checkedStudent" class="nav-link">Reports</a>
+      </li>
+      <li class="nav-item">
+        <a href="/logout" class="nav-link">LogOut</a>
+      </li>
+    </ul>
+  </div>
+
+  <div class="main-content">
+    <h2>เพิ่มรายชื่อนักศึกษา</h2>
+    <form action="/insert" method="POST">
+      <div class="col-md-12">
+        <label for="inputPassword4" class="form-label">รหัสนักศึกษา</label>
+        <input type="text" class="form-control" id="student_id" name="student_id" required>
+      </div>
+      <div class="col-md-12">
+        <label for="inputEmail4" class="form-label">คำนำหน้าชื่อ</label>
+        <select class="form-select" aria-label="Default select example" id="prefix_id" name="prefix_id" required>
+          <option value="1">นาย</option>
+          <option value="2">นาง</option>
+          <option value="3">นางสาว</option>
+        </select>
+      </div>
+      <div class="col-md-12">
+        <label for="inputPassword4" class="form-label">ชื่อ</label>
+        <input type="text" class="form-control" id="first_name" name="first_name" required>
+      </div>
+      <div class="col-md-12">
+        <label for="inputAddress" class="form-label">นามสกุล</label>
+        <input type="text" class="form-control" id="last_name" name="last_name" required>
+      </div>
+      <div class="col-md-12">
+        <label for="inputAddress2" class="form-label">วันเกิด</label>
+        <input type="date" class="form-control" id="date_of_birth" name="date_of_birth" required>
+      </div>
+      <div class="col-md-12">
+        <label for="inputCity" class="form-label">เพศ</label>
+        <select class="form-select" aria-label="Default select example" id="sex" name="sex" required>
+          <option value="M">ชาย</option>
+          <option value="F">หญิง</option>
+          <option value="O">อื่นๆ</option>
+        </select>
+      </div>
+      <div class="col-md-12">
+        <label for="inputCity" class="form-label">สาขา</label>
+        <select class="form-select" aria-label="Default select example" id="curriculum_id" name="curriculum_id"
+          required>
+          <option value="1">CS</option>
+          <option value="2">IT</option>
+        </select>
+      </div>
+      <div class="col-md-12">
+        <label for="inputZip" class="form-label">โรงเรียนเก่า</label>
+        <input type="text" class="form-control" id="prevoius_school" name="prevoius_school" required>
+      </div>
+      <div class="col-md-12">
+        <label for="inputZip" class="form-label">ที่อยู่</label>
+        <input type="text" class="form-control" id="address" name="address" required>
+      </div>
+      <div class="col-md-12">
+        <label for="inputZip" class="form-label">เบอร์โทรศัพท์</label>
+        <input type="text" class="form-control" id="telephone" name="telephone" required>
+      </div>
+      <div class="col-md-12">
+        <label for="inputZip" class="form-label">อีเมล</label>
+        <input type="email" class="form-control" id="email" name="email" required>
+      </div>
+      <div class="col-md-12">
+        <label for="inputZip" class="form-label">ไอดีไลน์</label>
+        <input type="text" class="form-control" id="line_id" name="line_id" required>
+      </div>
+      <div class="col-md-12">
+        <label for="inputZip" class="form-label">สถานะ</label>
+        <input type="text" class="form-control" id="status" name="status" required>
+      </div>
+      <br />
+      <div class="col-12">
+        <button type="submit" class="btn btn-primary">Submit</button>
+      </div>
+    </form>
+
+  </div>
+  <script>
+     function toggleSidebar() {
+            document.querySelector('.sidebar').classList.toggle('show');
+        }
+  </script>
+</body>
+
+</html>

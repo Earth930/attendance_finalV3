@@ -1,0 +1,45 @@
+create database attendance;
+\c attendance;
+
+create table prefix(id serial primary key,prefix varchar);
+
+create table section (id serial primary key,section varchar(2) null);
+
+create table curriculum(id serial primary key,curr_name_th varchar,curr_name_en varchar,short_name_th varchar,short_name_en varchar);
+
+create table student
+(id serial primary key,
+student_id varchar(13) not null,
+prefix_id int not null,
+first_name varchar not null,
+last_name varchar not null,
+date_of_birth date not null,
+sex varchar not null,
+curriculum_id int not null,
+prevoius_school varchar not null,
+address varchar not null,
+telephone varchar(10) not null,
+email varchar not null,
+line_id varchar not null,
+status varchar not null,
+foreign key(prefix_id) references prefix(id),
+foreign key(curriculum_id) references curriculum(id));
+
+create table student_list (id serial primary key,section_id int not null,
+student_id int not null,active_date date not null,status varchar(1) default 'N' not null,
+foreign key(section_id) references section(id),foreign key(student_id) references student(id));
+
+insert into section(id,section) VALUES (1,'sec 1'),(2,'sec 2');
+insert into prefix(id,prefix) VALUES (1,'นาย'),(2,'นาง'),(3,'นางสาว');
+insert into curriculum(id,curr_name_th,curr_name_en,short_name_th,short_name_en) VALUES 
+(1,'วิทยาการคอมพิวเตอร์','Computer Science','วท.บ(วิทยาการคอมพิวเตอร์) ','CS'),
+(2,'เทคโนโลยีสารสนเทศ','Information Technology','วท.บ(เทคโนโลยีสารสนเทศ)','IT');
+
+ALTER TABLE student_list
+ADD CONSTRAINT unique_student_date UNIQUE (student_id, active_date);
+
+
+
+
+
+
